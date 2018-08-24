@@ -36,8 +36,9 @@ const GetUsersMap = props => {
                 <View style={styles.marker} />
             </Animated.View> */}
             
-             <MapView.Callout onPress={() => { <Text>hello</Text> }}>
+             <MapView.Callout>
                 <Text >{props.userLocation.description}</Text>
+                <Image style={styles.cardImage} source={Image_Http_URL} />
             </MapView.Callout>
         </MapView.Marker>
     
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
         padding: 10
     },
     cardImage: {
-        height: 50,
-        width: 50,
+        height: 150,
+        width: 250,
     },
     textLeft: {
         position: 'absolute',
