@@ -2,22 +2,23 @@ import React from "react";
 import { StyleSheet, Text, View, Picker, AppState } from "react-native";
 import GetGeoLocation from "./Components/GetGeoLocation";
 import UsersMap from "./Components/GetUsersMap";
-
-
+import Config from "react-native-config";
 
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       userLocation: {
-        key: 'Tapavino',
-        title: 'Tapavino',
-        description: '6 Bulletin Pl, Sydney NSW 2000',
+        key: "Tapavino",
+        title: "Tapavino",
+        url: "https://i.imgur.com/sNam9iJ.jpg",
+        description: "6 Bulletin Pl, Sydney NSW 2000",
+        payMember: true, 
         coordinate: {
           latitude: null,
           longitude: null,
           latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421          
+          longitudeDelta: 0.0421
         }
       },
       seconds: 5
@@ -33,6 +34,7 @@ export default class App extends React.Component {
     AppState.removeEventListener("change", this._handleAppStateChange);
   }
 
+ 
   _handleAppStateChange = appState => {
     if (appState === "background") {
       console.log("app is in background");
@@ -40,19 +42,50 @@ export default class App extends React.Component {
   };
 
   _onGetGeoLocationHandler = () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      console.log("position current " + JSON.stringify(position));
-      this.setState({
-        userLocation: {
-          coordinate: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        // fetch(
+        //   "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        //     position.coords.latitude +
+        //     "," +
+        //     position.coords.longitude +
+        //     "&key=" +
+        //     Config.GOOGLE_MAPS_API_KEY
+        // )
+        //   .then(response => response.json())
+        //   .then(responseJson => {
+        //     if (responseJson.results.length > 0) {
+        //       console.log(
+        //         "ADDRESS GEOCODE is BACK!! => " +
+        //           responseJson.results[0].formatted_address
+        //       );
+        //       this.setState({
+        //         ...this.state.userLocation,
+        //         description: responseJson.results[0].formatted_address
+        //       });
+        //     } else {
+        //       console.log(
+        //         "ADDRESS GEOCODE is BACK!! => " +
+        //           JSON.stringify(responseJson.results[0])
+        //       );
+        //     }
+        //   });
+
+        console.log("position current " + JSON.stringify(position));
+        this.setState({
+          userLocation: {
+            ...this.state.userLocation,
+            coordinate: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }
           }
-        }
-      });
-    }, err => console.log(err));
+        });
+      },
+      err => console.log(err)
+    );
   };
 
   render() {

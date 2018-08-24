@@ -1,0 +1,45 @@
+### good example
+https://rationalappdev.com/santas-map-app-with-react-native/
+https://school.shoutem.com/lectures/geolocation-app-react-native/
+https://codedaily.io/tutorials/9/Build-a-Map-with-Custom-Animated-Markers-and-Region-Focus-when-Content-is-Scrolled-in-React-Native
+https://codedaily.io/tutorials/33/React-Native-Tinder-like-cards
+
+### code snipit
+pinColor={props.userLocation.payMember ? '#009688' : '#f44336'}
+
+###########
+
+<MapView.Callout>
+        <Card>
+          <Image
+            source={{ uri: props.userLocation.url }}
+          />
+          <View>
+            <Subtitle>{props.userLocation.title}</Subtitle>
+            <Caption>
+              {props.userLocation.description
+                ? props.userLocation.description
+                : ""}
+            </Caption>
+          </View>
+        </Card>
+      </MapView.Callout>
+    </MapView.Marker>
+
+###########
+    
+    
+    <MapView.Callout tooltip={true}>
+                <View style={{ width: 100, borderWidth: 1, borderColor: 'red' }}>
+                    <View style={{ alignSelf: 'center', borderWidth: 1, backgroundColor: '#fff' }}>
+                        <Text style={{ alignSelf: 'center' }}>This text should be one-liner</Text>
+                    </View>
+                </View>
+            </MapView.Callout>
+            
+ ###########
+            
+            <MapView.Callout onPress={() => { <Text>hello</Text> }}>
+                <Text >{props.userLocation.description}</Text>
+            </MapView.Callout>
+        </MapView.Marker>
