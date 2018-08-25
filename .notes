@@ -3,6 +3,7 @@ https://rationalappdev.com/santas-map-app-with-react-native/
 https://school.shoutem.com/lectures/geolocation-app-react-native/
 https://codedaily.io/tutorials/9/Build-a-Map-with-Custom-Animated-Markers-and-Region-Focus-when-Content-is-Scrolled-in-React-Native
 https://codedaily.io/tutorials/33/React-Native-Tinder-like-cards
+https://codedaily.io/tutorials/18/Easy-Overlay-Modal-with-Navigator
 
 ### code snipit
 pinColor={props.userLocation.payMember ? '#009688' : '#f44336'}
@@ -43,3 +44,59 @@ pinColor={props.userLocation.payMember ? '#009688' : '#f44336'}
                 <Text >{props.userLocation.description}</Text>
             </MapView.Callout>
         </MapView.Marker>
+        
+#####################
+        
+        <View style={{ marginTop: 22 }}>
+                    <Modal style={{ zIndex: 22  }}
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => { this.handelsetModalVisible }}
+                    >
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>>
+                            <View style={{
+                                width: 300,
+                                height: 300
+                            }}>
+                                <Text>Hello World!</Text>
+                            </View>
+                        </View>
+                    </Modal>
+
+                </View>
+                
+                
+ ###########
+                
+                 <View style={styles.container}>
+                    <TouchableHighlight
+                        onPress={this.openModal}
+                        underlayColor="green"
+                        style={styles.button}
+                    >
+                        <Text style={styles.buttonText}>Show Modal</Text>
+                    </TouchableHighlight>
+                    <Animated.View
+                        style={[
+                            styles.modal,
+                            { transform: [{ translateY: this.state.modalY }] }
+                        ]}
+                    >
+                        <TouchableHighlight
+                            onPress={this.closeModal}
+                            underlayColor="green"
+                            style={styles.button}
+                        >
+                            <Text style={styles.buttonText}>Close Modal</Text>
+                        </TouchableHighlight>
+                    </Animated.View>
+                </View>
+                
+                #############
+                

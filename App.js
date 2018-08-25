@@ -73,6 +73,7 @@ export default class App extends React.Component {
         //   });
 
         console.log("position current " + JSON.stringify(position));
+        
         this.setState({
           userLocation: {
             ...this.state.userLocation,
@@ -93,7 +94,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         {/* <GetGeoLocation onGetGeoLocation={this._onGetGeoLocationHandler} /> */}
-        <GetUsersMap userLocation={this.state.userLocation} />
+        <GetUsersMapModal userLocation={this.state.userLocation} />
         {/* <Picker
           style={styles.picker}
           selectedValue={this.state.seconds}

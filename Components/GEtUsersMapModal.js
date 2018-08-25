@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Modal, Animated, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, Modal, Animated, TouchableHighlight, TouchableOpacity, Button } from 'react-native';
 import MapView from 'react-native-maps';
 
 class GetUsersMapModal extends React.Component {
@@ -12,31 +12,20 @@ class GetUsersMapModal extends React.Component {
     }
 
     handelsetModalVisible() {
-        this.setState({ modalVisible: !this.state.modalVisible }); 
-        console.log(this.state.modalVisible);
-        return (
-            <View style={{ marginTop: 22 }}>
-            <Modal style={{ zIndex: 22 }}
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                    alert('Modal has been closed.');
-                }}>
-                <View style={{ marginTop: 22 }}>
-                    <View>
-                        <Text>Hello World!</Text>
-                    </View>
-                </View>
-            </Modal>
+        let visible = !this.state.modalVisible;
+        console.log('modalVisible1' + this.state.modalVisible);
+        this.setState({ modalVisible: visible });
 
-        </View> 
-        )
+        setTimeout(() => {
+            console.log('modalVisible2' + this.state.modalVisible);
+        }, 10);
     }
 
     render() {
         console.log("userLocation passed " + JSON.stringify(this.props.userLocation));
         console.log("url passed " + JSON.stringify(this.props.userLocation.url));
+        
+        console.log("coordinate coordinate " + JSON.stringify(this.props.userLocation.coordinate));
 
         let Image_Http_URL = { uri: this.props.userLocation.url };
 
@@ -45,7 +34,7 @@ class GetUsersMapModal extends React.Component {
                 key={this.props.userLocation.key}
                 coordinate={this.props.userLocation.coordinate}
                 pinColor={this.props.userLocation.payMember ? '#009688' : '#f44336'}
-                onPress={this.handelsetModalVisible} 
+                onPress={this.handelsetModalVisible}
             >
                 {/* <MapView.Callout>
                 <View style={styles.container}>
@@ -67,10 +56,6 @@ class GetUsersMapModal extends React.Component {
                 <View style={styles.marker} />
             </Animated.View> */}
 
-               
-                  
-               
-                
             </MapView.Marker>
             : null
 
@@ -101,10 +86,33 @@ class GetUsersMapModal extends React.Component {
                     {userLocationMarker}
                     {userLocationCircle}
                 </MapView>
+
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                }}>
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => { this.handelsetModalVisible }}
+                    >
+                        <View >
+                            <View style={styles.Modal} >
+                                <Text>Hello World!</Text>
+                                <TouchableOpacity style={styles.buttonModalClose} onPress={this.handelsetModalVisible}>
+                                    <Text> Touch Here </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                </View>
             </View>
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     mapContainer: {
@@ -161,6 +169,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: 0
+    },
+    buttonModalClose: {
+        width: 100,
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10
     }
 
 });
