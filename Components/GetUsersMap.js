@@ -1,22 +1,41 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image ,Modal,Animated} from 'react-native';
-import MapView from 'react-native-maps';
+import React from "react";
+import { StyleSheet, Text, View, Image, Modal, Animated, Dimensions } from "react-native";
+import MapView from "react-native-maps";
 
 
-const GetUsersMap = props => {
+const window = Dimensions.get('window');
 
-    console.log("userLocation passed " + JSON.stringify(props.userLocation));
-    console.log("url passed " + JSON.stringify(props.userLocation.url));
+
+export default class GetUsersMap extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            showME: false
+        }
+    }
     
-    let Image_Http_URL ={ uri: props.userLocation.url};
+    handleMarkercall = () => {
+        this.setState({ showME: true }, function () {
+            console.log(this.state.showME);
+       });      
+    }
     
-    let userLocationMarker = props.userLocation.coordinate ?
-        <MapView.Marker
-            key={props.userLocation.key}
-            coordinate={props.userLocation.coordinate}
-            pinColor={props.userLocation.payMember ? '#009688' : '#f44336'}
-        >
-            {/* <MapView.Callout>
+    render() {
+        
+       
+        console.log("showME " + this.state.showMe );
+        console.log("userLocation passed " + JSON.stringify(this.props.userLocation));
+        console.log("url passed " + JSON.stringify(this.props.userLocation.url));
+
+        let Image_Http_URL = { uri: this.props.userLocation.url };
+
+        let userLocationMarker = this.props.userLocation.coordinate.latitude && this.props.userLocation.coordinate.longitude ? (
+            <MapView.Marker
+                key={this.props.userLocation.key}
+                coordinate={this.props.userLocation.coordinate}
+                pinColor={this.props.userLocation.payMember ? "#009688" : "#f44336"}
+            >
+                {/* <MapView.Callout>
                 <View style={styles.container}>
                     <View
                         style={styles.card}
@@ -30,107 +49,118 @@ const GetUsersMap = props => {
                     </View>
                 </View>
             </MapView.Callout> */}
-            
-            {/* <Animated.View style={[styles.markerWrap]}>
+
+                {/* <Animated.View style={[styles.markerWrap]}>
                 <Animated.View style={[styles.ring]} />
                 <View style={styles.marker} />
             </Animated.View> */}
+
+                {/* <MapView.Callout>
+                    <Text >{props.userLocation.description}</Text>
+                    <Image style={styles.cardImage} source={Image_Http_URL} />
+                </MapView.Callout> */}
+            </MapView.Marker>
+        ) : null;
+
+        let userLocationCircle = this.props.userLocation.coordinate.latitude && this.props.userLocation.coordinate.longitude ? (
+            <MapView.Circle
+                key={(
+                    this.props.userLocation.coordinate.latitude +
+                    this.props.userLocation.coordinate.longitude
+                ).toString()}
+                center={this.props.userLocation.coordinate.latitude && this.props.userLocation.coordinate.longitude ? this.props.userLocation.coordinate : null}
+                radius={100}
+                strokeWidth={100}
+                strokeColor={"#87b272"}
+                fillColor={"rgba(230,238,255,0.5)"}
+            />
+        ) : null;
+
+        
+        let showCards =this.state.showMe ?
+            <View style={{  height: (window.height / 3), width:(window.width ) ,zIndex: 100, backgroundColor: "rgba(130,4,150, 0.9)", position: 'absolute', bottom: (window.height/10) }}>
+                <Text> hello </Text>
+            </View> : null 
             
-             <MapView.Callout>
-                <Text >{props.userLocation.description}</Text>
-                <Image style={styles.cardImage} source={Image_Http_URL} />
-            </MapView.Callout>
-        </MapView.Marker>
-    
-        : null
-
-
-    let userLocationCircle = props.userLocation.coordinate ?
-        <MapView.Circle
-            key={(props.userLocation.coordinate.latitude + props.userLocation.coordinate.longitude).toString()}
-            center={props.userLocation.coordinate}
-            radius={100}
-            strokeWidth={100}
-            strokeColor={'#87b272'}
-            fillColor={'rgba(230,238,255,0.5)'}
-        /> : null
-
-    return (
-        <View style={styles.mapContainer}>
-            <MapView style={styles.map}
-                initialRegion={{
-                    latitude: 27.9506,
-                    longitude: -82.4572,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-               // showsUserLocation={true}
-               // followsUserLocation={true}
-                region={props.userLocation.coordinate}
-            >
-                {userLocationMarker}
-                {userLocationCircle}
-            </MapView>
-        </View>
-    );
+        return (
+            <View style={styles.mapContainer}>
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude: 27.9506,
+                        longitude: -82.4572,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421
+                    }}
+                    onMarkerPress={this.handleMarkercall}
+                    // showsUserLocation={true}
+                    // followsUserLocation={true}
+                    region={this.props.userLocation.coordinate.latitude && this.props.userLocation.coordinate.longitude ? this.props.userLocation.coordinate : null}
+                   
+                    >
+                    {userLocationMarker}
+                    {userLocationCircle}
+                </MapView>
+                {showCards}
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     mapContainer: {
-        width: '100%',
-        height: '90%',
+        width: "100%",
+        height: "90%",
         paddingTop: 10
     },
     map: {
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%"
     },
     markerWrap: {
         alignItems: "center",
-        justifyContent: "center",
-      },
-      marker: {
+        justifyContent: "center"
+    },
+    marker: {
         width: 8,
         height: 8,
         borderRadius: 4,
-        backgroundColor: "rgba(130,4,150, 0.9)",
-      },
-      ring: {
+        backgroundColor: "rgba(130,4,150, 0.9)"
+    },
+    ring: {
         width: 24,
         height: 24,
         borderRadius: 12,
         backgroundColor: "rgba(130,4,150, 0.3)",
         position: "absolute",
         borderWidth: 1,
-        borderColor: "rgba(130,4,150, 0.5)",
-      },
+        borderColor: "rgba(130,4,150, 0.5)"
+    },
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: "center",
+        justifyContent: "center"
     },
     card: {
         borderWidth: 3,
         borderRadius: 3,
-        borderColor: '#000',
+        borderColor: "#000",
         width: 300,
         height: 200,
         padding: 10
     },
     cardImage: {
         height: 150,
-        width: 250,
+        width: 250
     },
     textLeft: {
-        position: 'absolute',
+        position: "absolute",
         left: 0,
         top: 0
     },
     textRight: {
-        position: 'absolute',
+        position: "absolute",
         right: 0,
         top: 0
     }
-
 });
-export default GetUsersMap;

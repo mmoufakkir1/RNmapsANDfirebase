@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, Picker, AppState } from "react-native";
 import GetGeoLocation from "./Components/GetGeoLocation";
 import GetUsersMap from "./Components/GetUsersMap";
-import GetUsersMapModal from "./Components/GetUsersMapModal";
+//import GetUsersMapModal from "./Components/GetUsersMapModal";
 import Config from "react-native-config";
 
 export default class App extends React.Component {
@@ -94,7 +94,8 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         {/* <GetGeoLocation onGetGeoLocation={this._onGetGeoLocationHandler} /> */}
-        <GetUsersMapModal userLocation={this.state.userLocation} />
+        <GetUsersMap userLocation={this.state.userLocation} />
+        {/* <GetUsersMapModal userLocation={this.state.userLocation} /> */}
         {/* <Picker
           style={styles.picker}
           selectedValue={this.state.seconds}

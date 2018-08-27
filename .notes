@@ -4,6 +4,7 @@ https://school.shoutem.com/lectures/geolocation-app-react-native/
 https://codedaily.io/tutorials/9/Build-a-Map-with-Custom-Animated-Markers-and-Region-Focus-when-Content-is-Scrolled-in-React-Native
 https://codedaily.io/tutorials/33/React-Native-Tinder-like-cards
 https://codedaily.io/tutorials/18/Easy-Overlay-Modal-with-Navigator
+https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
 
 ### code snipit
 pinColor={props.userLocation.payMember ? '#009688' : '#f44336'}
