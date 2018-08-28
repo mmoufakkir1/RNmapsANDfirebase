@@ -6,6 +6,14 @@ https://codedaily.io/tutorials/33/React-Native-Tinder-like-cards
 https://codedaily.io/tutorials/18/Easy-Overlay-Modal-with-Navigator
 https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
 
+## map example implementation
+https://github.com/anhtuank7c/maps-example
+https://medium.com/@shamin616/how-to-setup-google-maps-with-react-native-maps-in-react-native-in-ios-c5dd95f00a2c
+
+## fireabse example implementation
+https://medium.com/@paul.allies/react-native-firebase-cloud-messaging-ios-97b59e5f28ec
+https://blog.benestudio.co/kickstart-your-react-native-app-with-firebase-tutorial-0-e6713bdb2012
+
 ### code snipit
 pinColor={props.userLocation.payMember ? '#009688' : '#f44336'}
 

@@ -13,17 +13,17 @@ export default class GetUsersMap extends React.Component {
             showME: false
         }
     }
-    
+
     handleMarkercall = () => {
-        this.setState({ showME: true }, function () {
+        this.setState({ showME: !this.state.showME }, function () {
             console.log(this.state.showME);
-       });      
+        });
     }
-    
+
     render() {
-        
-       
-        console.log("showME " + this.state.showMe );
+
+
+        console.log("showME " + this.state.showMe);
         console.log("userLocation passed " + JSON.stringify(this.props.userLocation));
         console.log("url passed " + JSON.stringify(this.props.userLocation.url));
 
@@ -76,12 +76,14 @@ export default class GetUsersMap extends React.Component {
             />
         ) : null;
 
-        
-        let showCards =this.state.showMe ?
-            <View style={{  height: (window.height / 3), width:(window.width ) ,zIndex: 100, backgroundColor: "rgba(130,4,150, 0.9)", position: 'absolute', bottom: (window.height/10) }}>
-                <Text> hello </Text>
-            </View> : null 
-            
+
+        let showCards = this.state.showME ?
+            <View style={styles.cardpop}>
+                <Text> {this.props.userLocation.title} </Text>
+                <Image style={styles.cardImage} source={Image_Http_URL} />
+                <Text> {this.props.userLocation.description} </Text>
+            </View> : null
+
         return (
             <View style={styles.mapContainer}>
                 <MapView
@@ -96,8 +98,8 @@ export default class GetUsersMap extends React.Component {
                     // showsUserLocation={true}
                     // followsUserLocation={true}
                     region={this.props.userLocation.coordinate.latitude && this.props.userLocation.coordinate.longitude ? this.props.userLocation.coordinate : null}
-                   
-                    >
+
+                >
                     {userLocationMarker}
                     {userLocationCircle}
                 </MapView>
@@ -162,5 +164,16 @@ const styles = StyleSheet.create({
         position: "absolute",
         right: 0,
         top: 0
+    },
+    cardpop: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        height: (window.height / 3),
+        width: (window.width),
+        zIndex: 100,
+        backgroundColor: "rgb(255,250,250)",
+        position: 'absolute',
+        bottom: 0,
     }
 });
